@@ -14,10 +14,5 @@ export default function SetupPage() {
     // console.log('useEffect :)')
     if(!isOpen) onOpen();
   }, [onOpen, isOpen])
-  return (
-    <div className="p-4">
-      <UserButton afterSignOutUrl="/"/>
-      {/* <StoreModal /> */}
-    </div>
-  )
+  return null;
 }

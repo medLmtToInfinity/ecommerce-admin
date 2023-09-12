@@ -4,6 +4,7 @@ import * as z from "zod"
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-hot-toast";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useStoreModal } from "@/hooks/use-store-modal"
@@ -33,19 +34,14 @@ export const StoreModal = () => {
     const onSubmit = async (value) => {
         try {
             setIsLoading(true)
-            const data = JSON.stringify(value)
-            // console.log(value);
-            const res = await axios.post('/api/stores', {
-              name: value.name,
-            })
-            console.log(res.data)
+            const res = await axios.post('/api/stores', value)
+            window.location.assign(`/${res.data.id}`);
         } catch(error) {
-          console.log(error.response.data);
+          toast.error("Something went wrong.");
         } finally {
             setIsLoading(false);
         }
     }
-    // console.log(formSchema)
     return (
         <Modal 
         title="Test Title" 
@@ -55,7 +51,7 @@ export const StoreModal = () => {
         >
             <div>
             <div className="space-y-4 py-2 pb-4">
-            <Form {...form}>
+    <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <FormField
           control={form.control}
@@ -71,7 +67,7 @@ export const StoreModal = () => {
           )}
         />
         <div className="pt-6 space-x-2 flex items-center justify-end w-full">
-        <Button disabled={isLoading} variant='outline' onClick={storeModal.onClose}>Cancel</Button>
+        <Button disabled={isLoading} variant='outline' onClick={storeModal.onClose} type="reset">Cancel</Button>
         <Button disabled={isLoading} type="submit">Continue</Button>
         </div>
       </form>
