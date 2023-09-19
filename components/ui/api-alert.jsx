@@ -1,8 +1,11 @@
+"use client"
+
 import { Copy, Server } from "lucide-react";
-import { Alert, AlertDescription, AlertTitle } from "./alert";
-import { Badge } from "./badge";
-import { Button } from "./button";
 import toast from "react-hot-toast";
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 const textMap = (variant) => {
     return variant === "public" ? "Public" : "Admin"

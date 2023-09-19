@@ -2,6 +2,9 @@ import prismadb from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 
+
+
+
 export async function PATCH(request, {params: {storeId}}) {
     try {
         // console.log(storeId)
@@ -42,7 +45,7 @@ export async function DELETE(request, {params: {storeId}}) {
     try {
         const { userId } = auth();
         if(!userId) {
-            return new NextResponse("Unauthorized", {status: 401})
+            return new NextResponse("Unauthenticated", {status: 401})
         }
 
         if(!storeId) {
@@ -59,7 +62,7 @@ export async function DELETE(request, {params: {storeId}}) {
         return NextResponse.json(store);
 
     } catch(error) {
-        console.log("STORE_PATCH", error);
+        console.log("STORE_DELETE", error);
         return new NextResponse("Internal Error", { status: 500 })
     }
 }
